@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>kuber</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./kuber_files/katex.min.css">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body for="html-export">
+    <div class="crossnote markdown-preview  ">
+
+        <h1 id="kubernetes-commands-cheat-sheet">Kubernetes Commands Cheat Sheet </h1>
+        <h2 id="basic-cluster--context">Basic Cluster &amp; Context </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl version</code></td>
+                    <td>Shows client &amp; server version</td>
+                    <td><code>--short</code></td>
+                    <td>Short output</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl cluster-info</code></td>
+                    <td>Displays cluster info</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl config get-contexts</code></td>
+                    <td>Lists all contexts</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl config use-context &lt;name&gt;</code></td>
+                    <td>Switch context</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl config current-context</code></td>
+                    <td>Shows current context</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="pods">Pods </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl get pods</code></td>
+                    <td>List pods</td>
+                    <td><code>-o wide</code></td>
+                    <td>More details (IP, node)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><code>-A</code></td>
+                    <td>All namespaces</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl describe pod &lt;pod&gt;</code></td>
+                    <td>Detailed pod info</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl logs &lt;pod&gt;</code></td>
+                    <td>Show logs</td>
+                    <td><code>-f</code></td>
+                    <td>Follow logs</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><code>--tail=50</code></td>
+                    <td>Last 50 lines</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl exec -it &lt;pod&gt; -- bash</code></td>
+                    <td>Access container shell</td>
+                    <td><code>-c &lt;container&gt;</code></td>
+                    <td>Specify container</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl delete pod &lt;pod&gt;</code></td>
+                    <td>Delete pod</td>
+                    <td><code>--grace-period=0 --force</code></td>
+                    <td>Force delete</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="deployments">Deployments </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl get deployments</code></td>
+                    <td>List deployments</td>
+                    <td><code>-A</code></td>
+                    <td>All namespaces</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl create deployment &lt;name&gt; --image=&lt;img&gt;</code></td>
+                    <td>Create deployment</td>
+                    <td><code>--replicas=3</code></td>
+                    <td>Set replicas</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl scale deployment &lt;name&gt;</code></td>
+                    <td>Scale deployment</td>
+                    <td><code>--replicas=5</code></td>
+                    <td>Number of pods</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl rollout status deployment &lt;name&gt;</code></td>
+                    <td>Check rollout</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl rollout undo deployment &lt;name&gt;</code></td>
+                    <td>Rollback deployment</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="services">Services </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl get svc</code></td>
+                    <td>List services</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl expose deployment &lt;name&gt;</code></td>
+                    <td>Create service</td>
+                    <td><code>--type=NodePort</code></td>
+                    <td>Service type</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><code>--port=80</code></td>
+                    <td>Service port</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><code>--target-port=8080</code></td>
+                    <td>Container port</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl describe svc &lt;name&gt;</code></td>
+                    <td>Service details</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="namespaces">Namespaces </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl get ns</code></td>
+                    <td>List namespaces</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl create ns &lt;name&gt;</code></td>
+                    <td>Create namespace</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl delete ns &lt;name&gt;</code></td>
+                    <td>Delete namespace</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl get pods -n &lt;ns&gt;</code></td>
+                    <td>Pods in namespace</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="nodes">Nodes </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl get nodes</code></td>
+                    <td>List nodes</td>
+                    <td><code>-o wide</code></td>
+                    <td>Extra details</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl describe node &lt;node&gt;</code></td>
+                    <td>Node info</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl cordon &lt;node&gt;</code></td>
+                    <td>Mark node unschedulable</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl uncordon &lt;node&gt;</code></td>
+                    <td>Enable scheduling</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl drain &lt;node&gt;</code></td>
+                    <td>Evacuate pods</td>
+                    <td><code>--ignore-daemonsets</code></td>
+                    <td>Skip daemonsets</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="config--secrets">Config &amp; Secrets </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl create configmap &lt;name&gt;</code></td>
+                    <td>Create configmap</td>
+                    <td><code>--from-literal=key=value</code></td>
+                    <td>Inline data</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl get configmap</code></td>
+                    <td>List configmaps</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl create secret generic &lt;name&gt;</code></td>
+                    <td>Create secret</td>
+                    <td><code>--from-literal=key=value</code></td>
+                    <td>Inline secret</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl get secrets</code></td>
+                    <td>List secrets</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="apply--files">Apply &amp; Files </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl apply -f file.yaml</code></td>
+                    <td>Apply config</td>
+                    <td><code>-R</code></td>
+                    <td>Recursive</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl delete -f file.yaml</code></td>
+                    <td>Delete resources</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl diff -f file.yaml</code></td>
+                    <td>Show changes</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl replace -f file.yaml</code></td>
+                    <td>Replace resource</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="debugging--monitoring">Debugging &amp; Monitoring </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl top pods</code></td>
+                    <td>Resource usage (pods)</td>
+                    <td>—</td>
+                    <td>Metrics server required</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl top nodes</code></td>
+                    <td>Node usage</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl get events</code></td>
+                    <td>Cluster events</td>
+                    <td><code>--sort-by=.metadata.creationTimestamp</code></td>
+                    <td>Sort events</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl describe</code></td>
+                    <td>Debug any resource</td>
+                    <td>—</td>
+                    <td>Works for all</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="labels--selectors">Labels &amp; Selectors </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl label pods &lt;pod&gt; key=value</code></td>
+                    <td>Add label</td>
+                    <td><code>--overwrite</code></td>
+                    <td>Replace existing</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl get pods -l key=value</code></td>
+                    <td>Filter by label</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="port-forwarding">Port Forwarding </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                    <th>Important Flags</th>
+                    <th>Flag Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl port-forward pod/&lt;pod&gt; 8080:80</code></td>
+                    <td>Forward port</td>
+                    <td>—</td>
+                    <td>Local:Remote</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl port-forward svc/&lt;svc&gt; 8080:80</code></td>
+                    <td>Forward service</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="quick-power-moves-">Quick Power Moves ⚡ </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>kubectl get all</code></td>
+                    <td>Everything in namespace</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl delete all --all</code></td>
+                    <td>Delete everything</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl api-resources</code></td>
+                    <td>List resource types</td>
+                </tr>
+                <tr>
+                    <td><code>kubectl explain &lt;resource&gt;</code></td>
+                    <td>Docs inside terminal</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2 id="pro-tips-real-dev-stuff">Pro Tips (Real Dev Stuff) </h2>
+        <ul>
+            <li>
+                <p>Use aliases:</p>
+                <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">alias</span> <span class="token assign-left variable">k</span><span class="token operator">=</span>kubectl
+</code></pre>
+            </li>
+            <li>
+                <p>Auto-completion:</p>
+                <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">source</span> <span class="token operator">&lt;</span><span class="token punctuation">(</span>kubectl completion <span class="token function">bash</span><span class="token punctuation">)</span>
+</code></pre>
+            </li>
+            <li>
+                <p>Dry run before applying:</p>
+                <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>kubectl apply <span class="token parameter variable">-f</span> file.yaml --dry-run<span class="token operator">=</span>client
+</code></pre>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
