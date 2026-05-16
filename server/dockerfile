@@ -1,0 +1,15 @@
+
+FROM node:20-alpine
+
+WORKDIR /server
+
+COPY ./package.json pnpm-lock.yaml /server/  
+# When using COPY with more than (one source file), the destination must be a directory and end with a / or a \ like:- /server(/)
+
+RUN npm install -g pnpm && pnpm install
+
+COPY . /server
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
