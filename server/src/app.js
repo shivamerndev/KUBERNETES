@@ -14,6 +14,19 @@ app.get("/api/health", (req, res) => {
     res.json({ message: "Server Is Healthy." });
 });
 
+
+app.get("/api/test-stress",(req, res) => {
+
+    let sum = 0;
+
+    for (let i = 0; i < 1e7; i++) {
+        sum += i;
+    }
+    res.json({ message: "Stress Test Completed.", result: sum });
+})
+
+
+
 app.get("*not", (req, res) => {
     res.send("Path Not Found.")
 })
