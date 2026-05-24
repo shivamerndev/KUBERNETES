@@ -1,0 +1,79 @@
+```yaml
+labels:
+  app.kubernetes.io/name: my-express-ingress
+```
+
+* Adds a label for identification and management.
+
+```yaml
+spec:
+```
+
+* Contains the Ingress configuration.
+
+```yaml
+ingressClassName: nginx
+```
+
+* Uses the **NGINX Ingress Controller** to handle requests.
+
+```yaml
+rules:
+```
+
+* Defines routing rules.
+
+```yaml
+- host: localhost 
+```
+* Rule applies when the request host is `localhost`. ==>  http://localhost
+
+With host:
+host: example.com
+Only requests for example.com match.
+
+Without host:
+- http:
+Requests for any host (or even an IP address) can match.
+
+
+```yaml
+http:
+  paths:
+```
+* Defines URL paths for this host.
+
+```yaml
+- pathType: Prefix
+```
+* Matches any URL that starts with the specified path.
+
+```yaml
+path: "/"
+```
+* Matches all paths:
+  * `/`
+  * `/users`
+  * `/products`
+  * `/api`
+
+```yaml
+backend:
+```
+* Defines where traffic should be sent.
+
+```yaml
+service:
+  name: main-server-service
+```
+* Sends requests to the Service named `main-server-service`.
+
+```yaml
+port:
+  number: 80
+```
+* Uses port **80** of that Service.
+
+Browser Request => http://localhost => NGINX Ingress Controller => my-express-ingress  => main-server-service:80 =>  Pods (Express App)
+
+In one sentence: **Any request to `localhost` on any path (`/`) is routed by the NGINX Ingress Controller to `main-server-service` on port 80.**
